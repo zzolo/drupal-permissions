@@ -77,20 +77,20 @@ printf "Changing ownership of all contents of "${drupal_path}":\n user => "${dru
 chown -R ${drupal_user}:${httpd_group} .
 
 printf "Changing permissions of all directories inside "${drupal_path}" to "rwxr-x---"...\n"
-find . -type d -exec chmod u=rwx,g=rx,o= '{}' \;
+find . -type d -exec chmod u=rwx,g=rx,o= '{}' \+
 
 printf "Changing permissions of all files inside "${drupal_path}" to "rw-r-----"...\n"
-find . -type f -exec chmod u=rw,g=r,o= '{}' \;
+find . -type f -exec chmod u=rw,g=r,o= '{}' \+
 
 printf "Changing permissions of "files" directories in "${drupal_path}/sites" to "rwxrwx---"...\n"
 cd sites
-find . -type d -name files -exec chmod ug=rwx,o= '{}' \;
+find . -type d -name files -exec chmod ug=rwx,o= '{}' \+
 
 printf "Changing permissions of all files inside all "files" directories in "${drupal_path}/sites" to "rw-rw----"...\n"
 printf "Changing permissions of all directories inside all "files" directories in "${drupal_path}/sites" to "rwxrwx---"...\n"
 for x in ./*/files; do
-  find ${x} -type d -exec chmod ug=rwx,o= '{}' \;
-  find ${x} -type f -exec chmod ug=rw,o= '{}' \;
+  find ${x} -type d -exec chmod ug=rwx,o= '{}' \+
+  find ${x} -type f -exec chmod ug=rw,o= '{}' \+
 done
 
 printf "Changing permissions of \".git\" directories and files in \"${drupal_path}\" to \"rwx------\"...\n"
